@@ -1,7 +1,7 @@
 <div class="container my-4">
   <!-- หัวข้อหมวดหมู่ -->
   <div class="mb-4">
-    <h2 class="fw-bold text-white text-uppercase"><%= @category.name %></h2>
+    <h2 class="text-brand-orange fw-bold text-warning text-uppercase"><%= @category.name %></h2>
     <p class="text-des text-muted"><%= @category.description %></p>
   </div>
 
@@ -18,7 +18,7 @@
             <% elsif product.respond_to?(:image) && product.image.attached? %>
               <%= image_tag product.image, class: "card-img-top", style: "height: 220px; object-fit: cover;" %>
             <% else %>
-              <div class="bg-light text-center py-5 text-muted">ไม่มีรูปภาพ</div>
+              <div class="bg-light text-center py-5 text-muted" style="height: 220px; object-fit: cover;">No photo</div>
             <% end %>
 
             <!-- 2. ป้าย Badge ลอยมุมขวาบนภาพ -->

@@ -136,3 +136,7 @@ html {
   color: #ffffff !important;
   border: 1px solid #ff6600 !important;
 }
+
+.text-brand-orange {
+  color: #ff6600 !important; /* เปลี่ยนรหัสสีส้มให้ตรงกับปุ่ม COMMANDER */
+}

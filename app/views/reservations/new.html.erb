@@ -1,18 +1,7 @@
 
-<div class="container my-4" style="max-width: 650px;">
-  <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-
-    <%# Header ส่วนหัว %>
-    <div class="bg-dark text-white p-4 text-center position-relative">
-      <h3 class="fw-bold mb-1">🎉 การจองโต๊ะสำเร็จ</h3>
-    </div>
-  </div>
-</div>
-
-
 <div class="container my-5" style="max-width: 600px;">
-  <div class="card border-0 shadow-sm rounded-4 p-4">
-    <h3 class="fw-bold text-center mb-4"><i class="bi bi-calendar-event text-danger me-2"></i>Reserve Table</h3>
+  <div class="card border-0 shadow-sm rounded-4 p-4 fs-5">
+    <h2 class="text-brand-orange fw-bold text-center mb-4"><i class="bi bi-calendar-day me-3"></i>Reserve Table</h2>
 
     <%= form_with model: @reservation, local: true do |f| %>
       <% if @reservation.errors.any? %>
@@ -27,17 +16,17 @@
 
       <% unless user_signed_in? %>
         <div class="mb-3">
-          <%= f.label :name, "ชื่อ-นามสกุลผู้จอง", class: "form-label fw-semibold" %>
+          <%= f.label :name, "First-Last name:", class: "form-label fw-semibold" %>
           <%= f.text_field :name, class: "form-control rounded-3", required: true %>
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <%= f.label :email, "อีเมล", class: "form-label fw-semibold" %>
+            <%= f.label :email, "E-mail:", class: "form-label fw-semibold" %>
             <%= f.email_field :email, class: "form-control rounded-3", required: true %>
           </div>
           <div class="col-md-6 mb-3">
-            <%= f.label :phone, "เบอร์โทรศัพท์", class: "form-label fw-semibold" %>
+            <%= f.label :phone, "Telephone:", class: "form-label fw-semibold" %>
             <%= f.telephone_field :phone, class: "form-control rounded-3", required: true %>
           </div>
         </div>
@@ -45,25 +34,25 @@
 
       <%# เลือกวันที่จอง ( Calendar Picker ) %>
       <div class="mb-3">
-        <%= f.label :reservation_date, "วันที่ต้องการจอง", class: "form-label fw-semibold" %>
+        <%= f.label :reservation_date, "Date:", class: "form-label fw-semibold" %>
         <%= f.date_field :reservation_date, class: "form-control rounded-3", min: Date.today, value: Date.today, required: true %>
       </div>
 
       <%# เลือกเวลา และ จำนวนคน %>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <%= f.label :reservation_time, "เวลา", class: "form-label fw-semibold" %>
+          <%= f.label :reservation_time, "Time:", class: "form-label fw-semibold" %>
           <%= f.time_field :reservation_time, class: "form-control rounded-3", required: true %>
         </div>
 
         <div class="col-md-6 mb-3">
-          <%= f.label :guests, "จำนวนคน", class: "form-label fw-semibold" %>
+          <%= f.label :guests, "Person:", class: "form-label fw-semibold" %>
           <%= f.number_field :guests, class: "form-control rounded-3", min: 1, max: 20, value: 2, required: true %>
         </div>
       </div>
 
       <div class="mt-4 text-center">
-        <%= f.submit "Submit", class: "btn btn-danger btn-lg w-100 fw-bold rounded-3" %>
+        <%= f.submit "Submit", class: "btn btn-orange btn-lg w-100 fw-bold rounded-3" %>
       </div>
     <% end %>
   </div>
