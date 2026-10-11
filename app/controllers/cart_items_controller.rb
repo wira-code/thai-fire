@@ -6,7 +6,7 @@ class CartItemsController < ApplicationController
     @product = Product.find(params[:product_id])
 
     # 1. สร้าง CartItem หลัก
-    @cart_item = @cart.cart_items.create!(
+    @cart_item = @cart.cart_items.build(
       product: @product,
       quantity: params[:quantity] || 1,
       special_request: params[:special_request]
@@ -18,7 +18,7 @@ class CartItemsController < ApplicationController
     selected_choice_ids += params[:option_choice_ids] if params[:option_choice_ids].present?
 
     OptionChoice.where(id: selected_choice_ids).each do |choice|
-      @cart_item.cart_item_options.create!(
+      @cart_item.cart_item_options.build(
         option_name: choice.option.name,
         choice_name: choice.name,
         price_cents: choice.price_cents
@@ -34,7 +34,7 @@ class CartItemsController < ApplicationController
         add_on = AddOn.find_by(id: add_on_id)
         next unless add_on&.available?
 
-        @cart_item.cart_item_add_ons.create!(
+        @cart_item.cart_item_add_ons.build(
           add_on_id: add_on.id,
           add_on_name: add_on.name,
           price_cents: add_on.price_cents,
@@ -43,22 +43,33 @@ class CartItemsController < ApplicationController
       end
     end
 
-    redirect_to product_path(params[:product_id]), notice: "เพิ่มรายการลงในตะกร้าเรียบร้อยแล้ว"
+      respond_to do |format|
+      if @cart_item.save
+        flash.now[:notice] = "Added to cart successfully!"
+        format.turbo_stream
+        format.html { redirect_to request.referrer || root_path }
+      else
+        flash.now[:alert] = "Failed to add item to cart. Please try again."
+        format.turbo_stream
+        format.html { redirect_to request.referrer || root_path }
+      end
+    end
+    # redirect_to product_path(params[:product_id]), notice: "เพิ่มรายการลงในตะกร้าเรียบร้อยแล้ว"
   end
 
   def update
     @cart_item = current_cart.cart_items.find(params[:id])
     if @cart_item.update(quantity: params[:quantity])
-      redirect_to cart_path, notice: "อัปเดตจำนวนเรียบร้อยแล้ว"
+      redirect_to cart_path, notice: "Updated!"
     else
-      redirect_to cart_path, alert: "ไม่สามารถอัปเดตจำนวนได้"
+      redirect_to cart_path, alert: "Can not update!"
     end
   end
 
   def destroy
     @cart_item = current_cart.cart_items.find(params[:id])
     @cart_item.destroy
-    redirect_to cart_path, notice: "ลบรายการออกจากตะกร้าเรียบร้อยแล้ว"
+    redirect_to cart_path, notice: "Menu already deleted!"
   end
 
   # POST /cart_items/:id/increase

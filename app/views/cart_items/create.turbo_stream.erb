@@ -1,0 +1,24 @@
+
+<%# 1. อัปเดต Mini Cart ด้านขวาให้เป็นข้อมูลล่าสุด %>
+<%= turbo_stream.replace "mini_cart" do %>
+  <%= render "shared/mini_cart", cart: @cart %>
+<% end %>
+
+<%# 2. อัปเดตจำนวนสินค้าบนปุ่ม Cart ตรง Navbar (ถ้ามี) %>
+<%= turbo_stream.update "cart_count" do %>
+  <%= @cart.cart_items.sum(:quantity) %>
+<% end %>
+
+<%# 3. แสดงข้อความ Alert แบบลอย %>
+<%= turbo_stream.update "flash-messages" do %>
+  <% flash.each do |type, message| %>
+    <div data-controller="flash" class="toast show align-items-center text-white bg-dark border border-warning rounded-3 shadow-lg" role="alert">
+      <div class="d-flex">
+        <div class="toast-body fw-bold text-warning">
+          <i class="bi bi-check-circle-fill me-2"></i> <%= message %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-action="click->flash#dismiss"></button>
+      </div>
+    </div>
+  <% end %>
+<% end %>

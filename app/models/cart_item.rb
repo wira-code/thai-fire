@@ -14,7 +14,7 @@ class CartItem < ApplicationRecord
   def unit_price_cents
     base_price = product.price_cents || 0
     options_price = cart_item_options.sum(:price_cents)
-    add_ons_price = cart_item_add_ons.sum { |a| a.respond_to?(:price_cents) ? (a.price_cents || 0) : 0 }
+    add_ons_price = cart_item_add_ons.sum { |add_on| (add_on.price_cents || 0) * (add_on.quantity || 1) }
     # add_ons_price = cart_item_add_ons.sum(:price_cents)
 
     base_price + options_price + add_ons_price

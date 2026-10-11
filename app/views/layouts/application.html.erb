@@ -41,18 +41,16 @@
     <!-- ดึง Navbar มาแสดงผลทุกหน้า -->
     <%= render "shared/navbar" %>
 
-    <!-- Flash Messages แจ้งเตือน (Success / Alert) -->
-    <div class="container mt-3">
-      <% if notice %>
-        <div data-controller="flash" class="alert alert-success alert-dismissible fade show" role="alert">
-          <%= notice %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      <% end %>
-      <% if alert %>
-        <div data-controller="flash" class="alert alert-danger alert-dismissible fade show" role="alert">
-          <%= alert %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <!-- Flash Messages แบบลอยมุมขวาบน (ไม่ดันเนื้อหาลงมา) -->
+    <div id="flash-messages" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+      <% flash.each do |type, message| %>
+        <div data-controller="flash" class="toast show align-items-center text-white bg-dark border border-warning rounded-3 shadow-lg" role="alert">
+          <div class="d-flex">
+            <div class="toast-body fw-bold text-warning">
+              <i class="bi bi-check-circle-fill me-2"></i> <%= message %>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-action="click->flash#dismiss"></button>
+          </div>
         </div>
       <% end %>
     </div>

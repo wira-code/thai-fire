@@ -1,11 +1,11 @@
-<div id="sidebar-cart" class="mini-cart-sidebar shadow-lg">
+<div id="mini_cart" class="mini-cart-sidebar shadow-lg">
   <div class="text-brand-orange mini-cart-header p-3 text-center border-bottom bg-dark text-orange fw-bold fs-3">
     🛒 Your Cart
   </div>
 
   <div class="mini-cart-body p-2 overflow-auto" style="max-height: 400px;">
     <% if @cart_items.present? && @cart_items.any? %>
-      <% @cart_items.each do |item| %>
+      <% @cart_items.order(created_at: :asc).each do |item| %>
         <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom text-white gap-2">
           <div class="d-flex align-items-center gap-2">
 
@@ -87,7 +87,7 @@
       <span class="fs-4">Total</span>
       <span class="fs-4 fw-bold price-text">
         <% if @cart.respond_to?(:total_price) %>
-          <%= number_to_currency(@cart.total_price, unit: "€") %>
+          <%= number_to_currency(@cart.total_cents, unit: "€") %>
         <% else %>
           <%= number_to_currency(current_cart.cart_items.sum(&:unit_price_cents) / 100.0, unit: "€") %>
         <% end %>
