@@ -151,3 +151,9 @@ html {
   color: #ff6600 !important; /* สีส้มธีมร้าน */
   transform: translateY(-2px); /* (Optional) ขยับลอยขึ้นเล็กน้อย */
 }
+
+.navbar-nav .nav-link {
+  padding-left: 0.5rem !important;  /* ลดระยะห่างด้านซ้าย */
+  padding-right: 0.5rem !important; /* ลดระยะห่างด้านขวา */
+  /*font-size: 0.85rem;              /* ปรับขนาดฟอนต์ให้พอดี ไม่เบียด */
+}

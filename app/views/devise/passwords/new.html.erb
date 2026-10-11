@@ -1,23 +1,28 @@
-<div class="container my-4">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5 ms-md-5">
+<div class="container d-flex justify-content-center align-items-center min-vh-80 my-5">
+  <div class="card px-4 pb-4 pt-1 p-md-5 rounded-4 shadow-lg text-white" style="width: 100%; max-width: 420px; background-color: #1a1a1a; border: 1px solid #2d2d2d;">
 
-<h2>Forgot your password?</h2>
+    <!-- 1. หัวข้อ Forgot your password? อยู่ตรงกลาง -->
+    <h2 class="text-center fw-bold mt-0 mb-3" style="color: #ff6600;">Forgot your password?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
+      <!-- 2. ขยายช่องกรอก Email ให้กว้างเต็มกรอบ (w-100) -->
+      <div class="mb-4">
+        <%= f.label :email, class: "form-label text-white-50 fw-semibold mb-1" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control w-100 bg-dark text-white border-secondary py-2" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Send me password reset instructions" %>
-  </div>
-<% end %>
+      <!-- 3. ปุ่มกดสีส้มเต็มความกว้าง -->
+      <div class="actions">
+        <%= f.submit "Send me password reset instructions", class: "btn w-100 fw-bold py-2 rounded-4 text-white shadow-sm mb-3", style: "background-color: #ff6600; border: none;" %>
+      </div>
+    <% end %>
 
-<%= render "devise/shared/links" %>
+    <!-- ลิงก์ Log in / Sign up ด้านล่าง -->
+    <div class="text-center mt-3 pt-3 border-top border-secondary">
+      <%= render "devise/shared/links" %>
     </div>
+
   </div>
 </div>

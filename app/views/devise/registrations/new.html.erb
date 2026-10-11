@@ -1,32 +1,48 @@
-<div class="container my-4">
-  <div class="col-md-6"></div>
-  <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5" style="transform: none !important; transition: none !important;">
-    <h2>Sign up</h2>
+<div class="container d-flex justify-content-center align-items-center min-vh-80 my-5">
+  <div class="card p-2 p-md-5 rounded-4 shadow-lg text-white" style="width: 100%; max-width: 400px; background-color: #1a1a1a; border: 1px solid #2d2d2d;">
+    <h2 class="text-brand-orange text-center fw-bold mb-4">Sign up</h2>
+
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="field">
-        <p><%= f.label :email %></p>
-        <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+      <!-- เพิ่ม First name และ Last name ขนานกัน -->
+      <div class="row g-2 mb-3">
+        <div class="col-6">
+          <%= f.label :first_name, "First name", class: "form-label text-white-50 fw-semibold mb-1" %>
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: "form-control w-100 bg-dark text-white border-secondary py-2" %>
+        </div>
+        <div class="col-6">
+          <%= f.label :last_name, "Last name", class: "form-label text-white-50 fw-semibold mb-1" %>
+          <%= f.text_field :last_name, autocomplete: "family-name", class: "form-control w-100 bg-dark text-white border-secondary py-2" %>
+        </div>
       </div>
 
-      <div class="field">
-        <p><%= f.label :password %></p>
+      <!-- 2. ขยายช่องกรอกข้อมูลให้กว้างเต็มกรอบ (w-100) -->
+      <div class="mb-3">
+        <%= f.label :email, class: "form-label text-white-50 fw-semibold mb-1" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control w-100 bg-dark text-white border-secondary py-2" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password, class: "form-label text-white-50 fw-semibold mb-1" %>
         <% if @minimum_password_length %>
-          <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+          <small class="text-muted d-block fst-italic mb-1">(<%= @minimum_password_length %> characters minimum)</small>
         <% end %>
-        <p><%= f.password_field :password, autocomplete: "new-password" %></p>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control w-100 bg-dark text-white border-secondary py-2" %>
       </div>
 
-      <div class="field">
-        <p><%= f.label :password_confirmation %></p>
-        <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+      <div class="mb-4">
+        <%= f.label :password_confirmation, class: "form-label text-white-50 fw-semibold mb-1" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control w-100 bg-dark text-white border-secondary py-2" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Sign up" %>
+        <%= f.submit "Sign up", class: "btn w-100 fw-bold py-2 rounded-4 text-white shadow-sm mb-3", style: "background-color: #ff6600; border: none;" %>
       </div>
     <% end %>
-    <%= render "devise/shared/links" %>
+
+    <div class="text-center mt-3 pt-3 border-top border-secondary">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
 </div>
