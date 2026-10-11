@@ -1,8 +1,8 @@
-<div class="container my-4">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5 ms-md-5"> <!-- 👈 ms-md-5 คือการดันระยะขอบซ้ายเข้ามาทางขวา -->
+<div class="container d-flex justify-content-center align-items-center min-vh-80 my-5">
+  <div class="card p-4 p-md-5 rounded-4 shadow-lg text-white" style="width: 100%; max-width: 420px; background-color: #1a1a1a; border: 1px solid #2d2d2d;">
+   <!-- 👈 ms-md-5 คือการดันระยะขอบซ้ายเข้ามาทางขวา -->
 
-      <h2 class="mb-4">Log in</h2>
+      <h2 class="text-brand-orange mb-4">Log in</h2>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field">
@@ -29,6 +29,5 @@
       <div class="mt-3">
       <%= render "devise/shared/links" %>
       </div>
-    </div>
   </div>
 </div>

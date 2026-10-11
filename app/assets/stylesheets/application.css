@@ -140,3 +140,14 @@ html {
 .text-brand-orange {
   color: #ff6600 !important; /* เปลี่ยนรหัสสีส้มให้ตรงกับปุ่ม COMMANDER */
 }
+
+.social-icon-hover {
+  color: #ffffff; /* สีปกติ (ขาว) */
+  transition: color 0.2s ease, transform 0.2s ease; /* เพิ่มอนิเมชันความนุ่มนวล */
+  text-decoration: none; /* เอาเส้นใต้ลิงก์ออก */
+}
+
+.social-icon-hover:hover {
+  color: #ff6600 !important; /* สีส้มธีมร้าน */
+  transform: translateY(-2px); /* (Optional) ขยับลอยขึ้นเล็กน้อย */
+}
