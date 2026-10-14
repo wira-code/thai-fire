@@ -8,7 +8,7 @@
   <h2 class="text-brand-orange fw-bold mb-4  text-uppercase"><i class="fa-solid fa-basket-shopping me-2 text-danger"></i> Your Cart</h2>
 
   <% if @cart_items.empty? %>
-    <div class="text-center py-5 shadow-sm rounded-4 bg-light">
+    <div class="text-center py-5 shadow-sm rounded-4 bg-light align-items-center">
       <h4 class="text-muted mb-3">Has no item in the cart</h4>
       <%= link_to "See menu", root_path, class: "btn btn-danger rounded-pill px-4" %>
     </div>
@@ -94,7 +94,7 @@
       </div>
 
       <!-- สรุปยอดเงิน & ปุ่มไปสั่งซื้อ -->
-      <div class="col-lg-4">
+      <div class="col-lg-5">
         <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 20px;">
           <h4 class="fw-bold mb-3">สรุปคำสั่งซื้อ</h4>
           <hr>
