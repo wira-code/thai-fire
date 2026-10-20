@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "reviews/create"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -38,11 +39,20 @@ Rails.application.routes.draw do
       patch :upload_slip
     end
   end
+  resources :orders, only: [ :show, :index ] do
+    resources :reviews, only: [ :create ]
+  end
   resources :reservations, only: [ :new, :create, :show ]
   get "reserve", to: "reservations#new", as: :reserve
 
   # Admin Part
   namespace :admin do
+    get "delivery_zones/index"
+    get "delivery_zones/new"
+    get "delivery_zones/create"
+    get "delivery_zones/edit"
+    get "delivery_zones/update"
+    get "delivery_zones/destroy"
     # กำหนด root ของ admin ให้ชี้มาที่ dashboard#index หรือใช้ get 'dashboard', to: 'dashboard#index'
     get "dashboard", to: "dashboard#index"
     root to: "dashboard#index"
@@ -55,5 +65,6 @@ Rails.application.routes.draw do
     resources :option_choices, only: [ :create, :destroy ] # สำหรับจัดการ choices ภายใน option
     end
     resources :add_ons
+    resources :delivery_zones
   end
 end

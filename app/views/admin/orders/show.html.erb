@@ -64,4 +64,29 @@
   <% else %>
     <div class="alert alert-warning text-center">ไม่พบข้อมูลออเดอร์นี้</div>
   <% end %>
+
+  <% if @order.completed? && !@order.review %>
+  <div class="card bg-dark text-white border-secondary p-4 mt-4">
+    <h4 class="fw-bold text-brand-orange mb-3">⭐ ให้คะแนนและรีวิวออเดอร์นี้</h4>
+
+    <%= form_with(model: [@order, Review.new], local: true) do |f| %>
+      <div class="mb-3">
+        <%= f.label :rating, "คะแนนความพึงพอใจ", class: "form-label fw-bold" %>
+        <%= f.select :rating, [["5 ดาว - ประทับใจมาก", 5], ["4 ดาว - ดีมาก", 4], ["3 ดาว - ปานกลาง", 3], ["2 ดาว - พอใช้", 2], ["1 ดาว - ควรปรับปรุง", 1]], { prompt: "-- เลือกให้คะแนน --" }, { class: "form-select bg-dark text-white border-secondary", required: true } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :comment, "ข้อความรีวิวเพิ่มเติม", class: "form-label" %>
+        <%= f.text_area :comment, rows: 3, class: "form-control bg-dark text-white border-secondary", placeholder: "รสชาติอาหาร, ความเร็วในการจัดส่ง..." %>
+      </div>
+
+      <%= f.submit "ส่งรีวิว", class: "btn btn-warning fw-bold px-4" %>
+    <% end %>
+  </div>
+  <% elsif @order.review %>
+    <div class="alert alert-info mt-4">
+      <strong>รีวิวของคุณ:</strong> <%= "⭐" * @order.review.rating %> <br>
+      <%= @order.review.comment %>
+    </div>
+  <% end %>
 </div>

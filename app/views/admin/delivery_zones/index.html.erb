@@ -1,0 +1,45 @@
+
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-brand-orange fw-bold text-white"> <i class="bi bi-geo-alt-fill text-danger me-2"></i>Delivery Zone Management</h2>
+    <%= link_to "+ Add New Zone", new_admin_delivery_zone_path, class: "btn btn-warning fw-bold" %>
+  </div>
+
+  <div class="card bg-dark text-white border-secondary shadow-sm">
+    <div class="card-body p-0">
+      <table class="table table-dark table-hover mb-0 align-middle">
+        <thead>
+          <tr class="text-secondary border-secondary">
+            <th>Zone Name</th>
+            <th>Postal Code</th>
+            <th>Delivery Fee</th>
+            <th>Min Order</th>
+            <th>Status</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @delivery_zones.each do |zone| %>
+            <tr class="border-secondary">
+              <td class="fw-bold"><%= zone.name %></td>
+              <td><span class="badge bg-secondary"><%= zone.postal_code %></span></td>
+              <td>€<%= '%.2f' % zone.delivery_fee %></td>
+              <td>€<%= '%.2f' % zone.minimum_order %></td>
+              <td>
+                <% if zone.active? %>
+                  <span class="badge bg-success">Active</span>
+                <% else %>
+                  <span class="badge bg-danger">Inactive</span>
+                <% end %>
+              </td>
+              <td class="text-end">
+                <%= link_to "Edit", edit_admin_delivery_zone_path(zone), class: "btn btn-sm btn-outline-warning me-1" %>
+                <%= link_to "Delete", admin_delivery_zone_path(zone), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

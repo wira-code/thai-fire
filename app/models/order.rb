@@ -12,6 +12,7 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   # has_one :payment, dependent: :destroy
   has_one_attached :payment_slip
+  has_one :review, dependent: :destroy
 
   enum :order_type, {
       takeaway: 0,

@@ -1,6 +1,7 @@
  <%# ซีเลกเตอร์เลือกรูปแบบการรับอาหาร บนสุดของหน้า new.html.erb %>
- <div class="container-fluid px-lg-4">
-  <%= form_with model: @order, local: true do |f| %>
+ <div class="container-fluid px-lg-4 pt-3">
+  <div class="mx-auto" style="max-width: 720px;">
+    <%= form_with model: @order, local: true do |f| %>
     <div class="card p-3 mb-4 border-0 shadow-sm rounded-4">
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-start gap-3">
         <!-- หัวข้ออยู่ฝั่งซ้าย -->
@@ -9,12 +10,25 @@
         <!-- ปุ่มตัวเลือกอยู่ฝั่งขวา (แนวนอน) -->
         <div class="d-flex align-items-center gap-4">
           <div class="form-check mb-0">
-            <%= f.radio_button :order_type, 'takeaway', checked: true, class: "form-check-input", id: "type_takeaway" %>
+            <%= f.radio_button :order_type, 'takeaway',
+            checked: true,
+            class: "form-check-input",
+            id: "type_takeaway",
+            data: {
+            "checkout-target" => "orderType",
+            action: "change->checkout#toggleDeliveryFields"
+            } %>
             <%= f.label :order_type_takeaway, "Take away", class: "form-check-label fw-semibold", for: "type_takeaway" %>
           </div>
 
           <div class="form-check mb-0">
-            <%= f.radio_button :order_type, 'delivery', class: "form-check-input", id: "type_delivery" %>
+            <%= f.radio_button :order_type, 'delivery',
+            class: "form-check-input",
+            id: "type_delivery",
+            data: {
+            "checkout-target" => "orderType",
+            action: "change->checkout#toggleDeliveryFields"
+            } %>
             <%= f.label :order_type_delivery, "Delivery", class: "form-check-label fw-semibold", for: "type_delivery" %>
           </div>
         </div>
@@ -123,6 +137,7 @@
       <%= f.submit "Confirm", class: "btn btn-danger btn-lg flex-grow-1 fw-bold " %>
     </div>
   <% end %>
+ </div>
 </div>
 
 
@@ -130,17 +145,22 @@
   function toggleAddressField() {
     const addressGroup = document.getElementById("address-field-group");
     const addressInput = document.getElementById("delivery_address_input");
+    const zoneSelect = document.getElementById("delivery_zone_select");
     // ✅ แก้ไข: ดึง Radio ที่ถูกเลือกอยู่ในขณะนั้น
     const selectedRadio = document.querySelector('input[name="order[order_type]"]:checked');
 
     if (!addressGroup || !selectedRadio) return;
 
     if (selectedRadio.value === 'takeaway') {
-      // ซ่อนที่อยู่จัดส่ง และยกเลิกการบังคับกรอก
+      // ซ่อนที่อยู่จัดส่ง+ เลือกเขตจัดส่ง และยกเลิกการบังคับกรอก
       addressGroup.style.display = 'none';
       if (addressInput) {
         addressInput.required = false;
         addressInput.value = '';
+      }
+      if (zoneSelect) {
+        zoneSelect.required = false;
+        zoneSelect.value = '';
       }
     } else {
       // แสดงที่อยู่จัดส่ง และบังคับให้กรอก

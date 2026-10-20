@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
 
     # ถ้าล็อกอินอยู่ ให้เติมข้อมูลติดต่อตั้งแต่อยู่ในหน้า new
     if user_signed_in?
-      @order.customer_name = current_user.name # หรือ current_user.full_name ตามโครงสร้าง User model
+      @order.customer_name = "#{current_user.first_name} #{current_user.last_name}".strip # หรือ current_user.full_name ตามโครงสร้าง User model
       @order.email = current_user.email
       @order.phone_number = current_user.phone if current_user.respond_to?(:phone) # หรือ current_user.phone_number
     end
